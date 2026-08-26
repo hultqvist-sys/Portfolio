@@ -1,10 +1,14 @@
 import Cover from '../components/Cover'
+import About from '../components/About'
+import Companies from '../components/Companies'
 
 export default function HomePage() {
   return (
     <main>
       <Cover />
-      {/* TODO: Add other sections (work examples, about, contact, etc.) */}
+      <About />
+      <Companies />
+      {/* TODO: Add work grid section */}
     </main>
   )
 }

@@ -12,12 +12,17 @@ export default {
       },
       fontSize: {
         'display': ['80px', { lineHeight: '1.1' }],
+        'title': ['64px', { lineHeight: '1.19', letterSpacing: '0.02em' }],
         'h1': ['48px', { lineHeight: '1.2' }],
-        'h2': ['32px', { lineHeight: '1.3' }],
-        'h3': ['16px', { lineHeight: '1.5', letterSpacing: '0.15em', textTransform: 'uppercase' }],
-        'body-lg': ['24px', { lineHeight: '1.5' }],
-        'body-reg': ['20px', { lineHeight: '1.6' }],
-        'body-sm': ['14px', { lineHeight: '1.5' }],
+        'stat': ['40px', { lineHeight: '1.26', letterSpacing: '0.04em' }],
+        'subtitle': ['28px', { lineHeight: '1.6', letterSpacing: '0.04em' }],
+        'h2-alt': ['24px', { lineHeight: '1.19', letterSpacing: '0.04em' }],
+        'h2': ['32px', { lineHeight: '1.19', letterSpacing: '0.02em' }],
+        'h3': ['16px', { lineHeight: '1.5', letterSpacing: '0.04em', textTransform: 'uppercase' }],
+        'body-lg': ['24px', { lineHeight: '1.6', letterSpacing: '0.04em' }],
+        'body-md': ['18px', { lineHeight: '1.6', letterSpacing: '0.04em' }],
+        'body-reg': ['20px', { lineHeight: '1.6', letterSpacing: '0.04em' }],
+        'body-sm': ['14px', { lineHeight: '1.5', letterSpacing: '0.04em' }],
       },
       colors: {
         // Loader colors
