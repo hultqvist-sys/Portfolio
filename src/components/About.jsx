@@ -32,8 +32,8 @@ const BODY_CLASS = 'font-body text-body-reg font-light'
 
 export default function About() {
   return (
-    <section className="w-full px-6 py-24">
-      <div className="w-full max-w-[960px] mx-auto flex flex-col lg:flex-row gap-8">
+    <section className="w-full">
+      <div className="w-full flex flex-col lg:flex-row gap-8">
         {/* Left - About me, enters from the left */}
         <motion.div
           className="w-full lg:flex-1 flex flex-col gap-12"

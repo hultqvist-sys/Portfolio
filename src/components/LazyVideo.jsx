@@ -18,8 +18,12 @@ export default function LazyVideo({
           autoPlay={autoPlay}
           muted={muted}
           loop={loop}
+          // Required alongside `muted`, or iOS Safari refuses to autoplay and
+          // takes the video fullscreen instead.
+          playsInline
           preload="metadata"
           poster={poster}
+          aria-label={alt}
           className="w-full h-full object-cover"
         >
           <source src={src} type="video/mp4" />
@@ -28,11 +32,15 @@ export default function LazyVideo({
       ) : (
         <div
           className="w-full h-full bg-gray-200"
-          style={{
-            backgroundImage: `url(${poster})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }}
+          style={
+            poster
+              ? {
+                  backgroundImage: `url(${poster})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                }
+              : undefined
+          }
         />
       )}
     </div>

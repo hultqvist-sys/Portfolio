@@ -40,9 +40,9 @@ const fromBelowVariants = {
 
 export default function Cover() {
   return (
-    <section className="w-full min-h-screen flex flex-col items-center justify-center px-6 py-20">
+    <section className="w-full min-h-screen flex flex-col items-center justify-center">
       <motion.div
-        className="w-full max-w-[960px] mx-auto flex flex-col items-center gap-20"
+        className="w-full flex flex-col items-center gap-20"
         variants={containerVariants}
         initial="hidden"
         animate="visible"

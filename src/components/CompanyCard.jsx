@@ -1,14 +1,15 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { Plus } from 'lucide-react'
 
-// Figma: collapsed 309px, expanded 618px, siblings shrink to 232px.
-// 618 / 232 gives the exact flex-grow ratio that reproduces those widths.
-const EXPANDED_GROW = 618 / 232
 const EASE = [0.22, 1, 0.36, 1]
+const BORDER = '0.5px solid'
 
 export default function CompanyCard({
   company,
   isActive,
+  // Row geometry comes from Companies — see the constants there.
+  expandedGrow,
+  expandedContentWidth,
   onActivate,
   onDeactivate,
   onToggle,
@@ -24,11 +25,12 @@ export default function CompanyCard({
 
   return (
     <motion.div
-      className="relative overflow-hidden rounded-lg cursor-pointer flex flex-col justify-end gap-4 p-6 min-h-[220px] lg:min-h-0 basis-auto lg:basis-0 min-w-0"
+      className="relative overflow-hidden rounded-lg cursor-pointer flex flex-col justify-end gap-4 p-4 min-h-[220px] lg:min-h-0 basis-auto lg:basis-0 min-w-0"
       style={{
-        border: isActive ? '2px solid transparent' : '2px solid rgba(11, 18, 14, 0.14)',
+        // Transparent rather than none when active, so the box doesn't shift.
+        border: `${BORDER} ${isActive ? 'transparent' : 'rgba(11, 18, 14, 0.14)'}`,
       }}
-      animate={{ flexGrow: isActive ? EXPANDED_GROW : 1 }}
+      animate={{ flexGrow: isActive ? expandedGrow : 1 }}
       transition={{ duration: 0.5, ease: EASE }}
       onHoverStart={onActivate}
       onHoverEnd={onDeactivate}
@@ -77,7 +79,7 @@ export default function CompanyCard({
 
       {/* Plus rotates into a cross */}
       <motion.div
-        className="absolute top-6 right-6 w-8 h-8 flex items-center justify-center"
+        className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center"
         animate={{ rotate: isActive ? 45 : 0 }}
         transition={{ duration: 0.4, ease: EASE }}
       >
@@ -88,14 +90,27 @@ export default function CompanyCard({
         />
       </motion.div>
 
-      {/* Content sits above the background, pinned to the bottom */}
-      <div className="relative flex flex-col gap-4 min-w-0">
+      {/* Content sits above the background, pinned to the bottom.
+
+          When active it's pinned to the expanded card's final inner width
+          straight away, rather than tracking the card as it grows. The card
+          clips the overhang for the first few frames and reveals it — but the
+          text is wrapped for its end state from the outset, so it doesn't
+          reflow line by line through the animation. */}
+      <div
+        className="relative flex flex-col gap-4 min-w-0"
+        style={
+          isActive && expandedContentWidth
+            ? { width: expandedContentWidth }
+            : undefined
+        }
+      >
         <img src={logo} alt={`${name} logo`} className="w-[46px] h-[46px] object-contain" />
 
         <div className="flex flex-col gap-2 min-w-0">
           {/* Always one line — ellipsis when the card is too narrow */}
           <h3
-            className="font-display font-normal text-h2 truncate"
+            className="font-display font-normal text-h4 truncate"
             style={{ color: isActive ? '#FFFFFF' : '#000000' }}
             title={name}
           >
@@ -107,9 +122,12 @@ export default function CompanyCard({
           <motion.p
             key={isActive ? 'long' : 'short'}
             className={
+              // Same size and weight either way; only the copy and colour
+              // change. The clamp stays on the collapsed card, where the
+              // shortBlurb has to survive a ~180px column.
               isActive
-                ? 'font-body text-body-md font-semibold'
-                : 'font-body text-body-md font-normal line-clamp-2'
+                ? 'font-body text-body-base font-normal'
+                : 'font-body text-body-base font-normal line-clamp-2'
             }
             style={{ color: isActive ? '#FFFFFF' : '#292A2E' }}
             initial={{ opacity: 0 }}
