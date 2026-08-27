@@ -12,7 +12,16 @@ import CompanyCard from './CompanyCard'
  */
 const EXPANDED_GROW = 618 / 232
 const CARD_GAP = 8 // gap-2 on the row
-const CARD_PADDING = 16 // p-4 inside each card
+
+/**
+ * The measured content width is shaved by this much before use. Browser
+ * sub-pixel rounding puts the arithmetic within a couple of pixels of the real
+ * content box either way, and the two directions are not equally bad: a hair
+ * narrow wraps the text imperceptibly early, a hair wide overflows the card's
+ * padding and gets clipped. Measured against Chrome across 700-1600px row
+ * widths, 2px is enough to always land under.
+ */
+const WIDTH_SAFETY = 2
 
 const sectionVariants = {
   hidden: { opacity: 0, y: 48 },
@@ -47,11 +56,30 @@ export default function Companies() {
       }
 
       const count = companies.length
-      const available = row.clientWidth - (count - 1) * CARD_GAP
-      const expanded = (available * EXPANDED_GROW) / (EXPANDED_GROW + count - 1)
-      // Sub-pixel card borders are ignored; being 1px narrow only wraps text a
-      // pixel early, which is invisible.
-      setExpandedContentWidth(Math.max(0, Math.round(expanded - CARD_PADDING * 2)))
+
+      // Cards are flex-basis:0 with border-box sizing, so the browser floors
+      // each one's base size at its own padding + border and shares everything
+      // left over by flex-grow. That makes the padding and borders of *all*
+      // cards unavailable to the grow calculation, not just the expanded one's
+      // — so they come off the total before the ratio is applied.
+      const insetTotal = Array.from(row.children).reduce((sum, card) => {
+        const style = getComputedStyle(card)
+        return (
+          sum +
+          parseFloat(style.paddingLeft) +
+          parseFloat(style.paddingRight) +
+          parseFloat(style.borderLeftWidth) +
+          parseFloat(style.borderRightWidth)
+        )
+      }, 0)
+
+      const free = row.clientWidth - (count - 1) * CARD_GAP - insetTotal
+
+      // Since each card's base size is nothing but padding and border, the
+      // expanded card's share of the free space *is* its content box — no
+      // further padding subtraction.
+      const expanded = (free * EXPANDED_GROW) / (EXPANDED_GROW + count - 1)
+      setExpandedContentWidth(Math.max(0, Math.floor(expanded) - WIDTH_SAFETY))
     }
 
     measure()

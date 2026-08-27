@@ -17,6 +17,7 @@ export default function CompanyCard({
   const {
     name,
     logo,
+    logoLight,
     shortBlurb,
     longBlurb,
     expandedImage,
@@ -105,7 +106,33 @@ export default function CompanyCard({
             : undefined
         }
       >
-        <img src={logo} alt={`${name} logo`} className="w-[46px] h-[46px] object-contain" />
+        {/* Where a light logo exists the two crossfade on the same timing as
+            the background, rather than one <img> hard-swapping its src. The
+            default Volvo mark is an opaque tile, so swapping at t=0 would
+            leave the white wordmark sitting invisibly on it for the first
+            frames of the fade — and the dark mark invisible on the image on
+            the way back out. */}
+        {logoLight ? (
+          <div className="relative w-[46px] h-[46px]">
+            <motion.img
+              src={logo}
+              alt={`${name} logo`}
+              className="absolute inset-0 w-full h-full object-contain"
+              animate={{ opacity: isActive ? 0 : 1 }}
+              transition={{ duration: 0.4, ease: EASE }}
+            />
+            <motion.img
+              src={logoLight}
+              alt=""
+              aria-hidden="true"
+              className="absolute inset-0 w-full h-full object-contain"
+              animate={{ opacity: isActive ? 1 : 0 }}
+              transition={{ duration: 0.4, ease: EASE }}
+            />
+          </div>
+        ) : (
+          <img src={logo} alt={`${name} logo`} className="w-[46px] h-[46px] object-contain" />
+        )}
 
         <div className="flex flex-col gap-2 min-w-0">
           {/* Always one line — ellipsis when the card is too narrow */}
