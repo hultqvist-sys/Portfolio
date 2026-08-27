@@ -20,8 +20,14 @@ export default function SectionHeading({ title, body }) {
       transition={{ duration: 0.6, ease: 'easeOut' }}
     >
       <h3 className="w-full lg:w-[544px] lg:shrink-0 font-display font-normal text-h2 text-black">
-        {lines.map(line => (
-          <span key={line} className="block">
+        {/* First line is the "01." marker — bold and accented against the
+            headline, which stays regular weight. Size and family come from the
+            h3 (Chivo 32) so the two lines share a baseline grid. */}
+        {lines.map((line, index) => (
+          <span
+            key={line}
+            className={index === 0 ? 'block font-bold text-[#E56E00]' : 'block'}
+          >
             {line}
           </span>
         ))}

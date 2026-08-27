@@ -47,6 +47,7 @@ export const companies = [
     id: 'dell',
     name: 'Dell',
     logo: `${LOGO_DIR}/Dell logo.svg`,
+    logoLight: `${LOGO_DIR}/Dell_light_logo.svg`,
     shortBlurb: 'Cloud networking management tools',
     longBlurb:
       'Integrated into Dell’s hybrid-cloud solutions team and designed their new cloud server management software.',
@@ -57,6 +58,7 @@ export const companies = [
     id: 'att',
     name: 'AT&T',
     logo: `${LOGO_DIR}/ATT logo.svg`,
+    logoLight: `${LOGO_DIR}/ATT_light_logo.svg`,
     shortBlurb: 'UX & research for cybersecurity app',
     longBlurb:
       'Spearheaded focus group testing and analysis to design and validate updates to AT&T’s cybersecurity platform.',

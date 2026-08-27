@@ -54,7 +54,7 @@ export default function About() {
             <p className={BODY_CLASS} style={{ color: '#292A2E' }}>
               Currently at Atlassian, I lead end-to-end UX/UI design for the
               Atlassian Learning Platform, delivering complex learning
-              experiences to tens of thousands of learners.
+              experiences to hundreds of thousands of learners.
             </p>
           </div>
         </motion.div>

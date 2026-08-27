@@ -3,8 +3,8 @@ import { useRevealOnScroll } from '../hooks/useRevealOnScroll'
 
 /**
  * A video that plays through once when it scrolls into view, then holds its
- * final frame — the same reveal behaviour as RevealLottie, so the three animated
- * blocks in the Learning highlights section stay consistent.
+ * final frame. All three animated blocks in the Learning highlights section use
+ * it, so they stay consistent.
  *
  * Deliberately not LazyVideo: that one loops and starts the moment it mounts,
  * which is right for the Gamification walkthrough but not for a 2s one-shot.

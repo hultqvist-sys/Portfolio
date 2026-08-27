@@ -3,7 +3,7 @@ import { useReducedMotion } from 'framer-motion'
 
 /**
  * How early the asset is mounted, ahead of entering the viewport. Generous,
- * because these are 1.7MB each (Mix_and_match.lottie, component_board.mp4) — if
+ * because these run 1.7-3.0MB each — if
  * they only started downloading once visible, the animation would begin late or
  * stutter through its first frames.
  */

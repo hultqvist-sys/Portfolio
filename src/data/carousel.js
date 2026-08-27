@@ -20,13 +20,13 @@ export const SLIDE_ASPECT = '1104 / 625'
 
 export const carouselSlides = [
   {
-    id: 'ilt-enrollment',
-    src: `${DIR}/Image_1.svg`,
+    id: 'ilt-enrollment2',
+    src: `${DIR}/Image_1.png`,
     alt: 'Live training session page shown on desktop and mobile',
   },
   {
     id: 'session-pages',
-    src: `${DIR}/Image_2.svg`,
+    src: `${DIR}/Image_2.png`,
     alt: 'Session and course page designs',
   },
   {

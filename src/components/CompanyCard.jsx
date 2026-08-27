@@ -71,7 +71,7 @@ export default function CompanyCard({
               className="absolute inset-x-0 bottom-0 h-[85%]"
               style={{
                 background:
-                  'linear-gradient(to top, #000 0%, #000 30%, transparent 100%)',
+                  'linear-gradient(to top, #000 0%, #000 10%, transparent 80%)',
               }}
             />
           </motion.div>

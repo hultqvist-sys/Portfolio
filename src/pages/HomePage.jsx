@@ -5,6 +5,7 @@ import LearningHighlights from '../components/LearningHighlights'
 import Gamification from '../components/Gamification'
 import LiveTraining from '../components/LiveTraining'
 import Gallery from '../components/Gallery'
+import Contact from '../components/Contact'
 import SectionDivider from '../components/SectionDivider'
 
 /**
@@ -41,7 +42,9 @@ export default function HomePage() {
 
         <Gallery />
 
-        {/* TODO: "Thanks for visiting / Let's get in touch!" footer (Figma 317:20117) */}
+        <SectionDivider />
+
+        <Contact />
       </div>
     </main>
   )
